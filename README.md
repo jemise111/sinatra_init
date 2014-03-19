@@ -21,4 +21,5 @@ Structure includes:
 * public/styles/style.css
 * spec/spec_helper.rb
 * spec/spec_helper.rb spec/user_spec.rb
-* server.rb with appropriate RESTful routes and instance variables
+* server.rb with appropriate RESTful routes and instance variables and
+  root page
