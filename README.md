@@ -23,3 +23,16 @@ Structure includes:
 * spec/spec_helper.rb spec/user_spec.rb
 * server.rb with appropriate RESTful routes and instance variables and
   root page
+
+---
+
+#Creating an alias
+
+To create an alias add the following to your bash profile (assuming sinatra_init is in your home directory)
+
+```
+chmod u+rwx ~/sinatra_init/sinatra_init.sh
+alias sinatrainit=~/sinatra_init/sinatra_init.sh
+```
+
+Then when inside any directory run 'sinatrainit' to run.
