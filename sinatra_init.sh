@@ -2,12 +2,14 @@ mkdir db models public views
 mkdir public/styles
 touch server.rb db/schema.sql db/seeds.rb views/layout.erb views/index.erb views/show.erb views/root.erb views/edit.erb views/new.erb public/styles/style.css models/user.rb
 rspec --init
+rm spec/spec_helper.rb
+touch spec/spec_helper.rb
 touch spec/user_spec.rb
 cat <<EOS >> server.rb
 require 'sinatra'
 require 'sinatra/reloader'
 require 'active_record'
-require_relative 'user'
+require_relative './models/user'
 
 ActiveRecord::Base.establish_connection(
   database: 'users_db',
@@ -97,7 +99,7 @@ cat <<EOS >> views/index.erb
 <% @users.each do |user| %>
   <!-- Display user here -->
   <!-- Link to edit form
-  <a href="/characters/<%= c.id %>/edit">edit</a>
+  <a href="/users/<%= user.id %>/edit">edit</a>
   -->
 <% end %>
 EOS
@@ -132,7 +134,7 @@ cat <<EOS >> views/edit.erb
 EOS
 cat <<EOS >> spec/user_spec.rb
 require_relative './spec_helper'
-require_relative '../models/image'
+require_relative '../models/user'
 
 describe User do
   describe '.new' do
@@ -145,8 +147,29 @@ describe User do
 end
 EOS
 cat <<EOS >> spec/spec_helper.rb
+require 'active_record'
+
+RSpec.configure do |config|
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.run_all_when_everything_filtered = true
+  config.filter_run :focus
+  config.around do |example|
+    ActiveRecord::Base.transaction do
+      example.run
+      raise ActiveRecord::Rollback
+    end
+  end
+
+  # Run specs in random order to surface order dependencies. If you find an
+  # order dependency and want to debug it, you can fix the order by providing
+  # the seed, which is printed after each run.
+  #     --seed 1234
+  config.order = 'random'
+end
+
 ActiveRecord::Base.establish_connection(
-  database: "user_db",
+  database: "users_db",
   adapter: "postgresql"
 )
+
 EOS

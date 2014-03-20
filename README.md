@@ -1,14 +1,15 @@
 #Sinatra Init
 
-Run the shell script sinatra_init.sh in any repository to setup Sinatra file structure utilizing ActiveRecord and Postgresql with some starter files.
+Run the shell script sinatra_init.sh in any repository to setup Sinatra file structure utilizing ActiveRecord and Postgresql with some starter files and helper text.
 
 Structure designed for one resource (one model/class, no relationships).
 
 Placeholder resource is 'users' (class User, database: users_db). Placeholder attribute is 'attribute'
+Change these in all files accordingly.
 
 Structure includes:
 
-* db, models, public, views, spec folder (formatted with RSpec)
+* db, models, public, views, spec folder (using RSpec)
 * db/shema.sql, db/seeds.rb
 * models/user.rb
 * views/
@@ -21,7 +22,7 @@ Structure includes:
 * public/styles/style.css
 * spec/spec_helper.rb
 * spec/spec_helper.rb spec/user_spec.rb
-* server.rb with appropriate RESTful routes and instance variables and
+* server.rb with appropriate RESTful routes, instance variables, and
   root page
 
 ---
